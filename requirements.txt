@@ -3,3 +3,5 @@ gunicorn==19.9.0
 geopy==1.13
 scikit-image==0.14.1
 imutils
+imageio
+cv2
