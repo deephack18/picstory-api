@@ -6,9 +6,17 @@ from flask import Flask, jsonify, request
 
 from backend import ImageData, PATH_TO_IMAGES
 
-app = Flask(__name__)
+if not os.path.exists(PATH_TO_IMAGES):
+    os.makedirs(PATH_TO_IMAGES)
+    print("Starting loading images")
+    importlib.import_module('load-images')
+    print("Images loaded")
+else:
+    print("Images already downloaded to the disk")
 
-image_data = None
+image_data = ImageData()
+
+app = Flask(__name__)
 
 @app.route('/api/v1.0/get-points/<userId>', methods=['GET'])
 def get_points(userId):
@@ -32,10 +40,4 @@ def submit_challenge_photo():
 
 
 if __name__ == '__main__':
-    if not os.path.exists(PATH_TO_IMAGES):
-        os.makedirs(PATH_TO_IMAGES)
-        print("Starting loading images")
-        importlib.import_module('load-images')
-        print("Images loaded")
-    image_data = ImageData()
     app.run(debug=True)

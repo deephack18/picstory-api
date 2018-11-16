@@ -13,6 +13,7 @@ DISTANCE_IN_KM_TO_CONSIDER_CLOSE = 1
 
 import base64
 
+
 class ImageData(object):
     def __init__(self):
         self.counter = 0
