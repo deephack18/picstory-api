@@ -4,4 +4,6 @@ geopy==1.13
 scikit-image==0.14.1
 imutils
 imageio
+matplotlib
+numpy
 opencv-python
