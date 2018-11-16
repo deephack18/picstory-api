@@ -1,5 +1,5 @@
 Flask==1.0.2
 gunicorn==19.9.0
-geopy==1.17.0
+geopy==1.13
 scikit-image==0.14.1
 imutils

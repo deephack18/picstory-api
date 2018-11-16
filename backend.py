@@ -2,6 +2,7 @@ import json
 import threading
 
 import geopy
+from geopy import distance
 
 import imageproc
 
@@ -30,13 +31,15 @@ class ImageData(object):
 
     def get_image_for_location(self, lng, lat):
         for img_data in self.image_data['docs']:
-            if geopy.distance.distance(*img_data['CP_geo'], (lng, lat)).km < DISTANCE_IN_KM_TO_CONSIDER_CLOSE:
-                with open(f'{PATH_TO_IMAGES}/{img_data["B1p"]}', "rb") as image_file:
-                    encoded_img = base64.b64encode(image_file.read())
+            if 'CP_geo' not in img_data:
+                continue
+            if distance.distance(*(img_data['CP_geo']), (lng, lat)).km < DISTANCE_IN_KM_TO_CONSIDER_CLOSE:
+                with open(f'{PATH_TO_IMAGES}/{img_data["B1p"][0]}', "rb") as image_file:
+                    encoded_img = base64.b64encode(image_file.read()).decode()
                     challenge_id = self.__get_next_counter()
                     self.challenges[challenge_id] = {encoded_img}
                     return challenge_id, encoded_img
-        return None
+        return None, None
 
     def __save_points(self):
         with open('points', 'w') as f:
