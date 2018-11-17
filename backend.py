@@ -17,6 +17,7 @@ import base64
 
 class ImageData(object):
     def __init__(self):
+        print('Initializing ImageData')
         self.counter = 0
         with open(PATH_TO_DATA, 'r') as f:
             self.image_data = json.load(f)
@@ -29,7 +30,7 @@ class ImageData(object):
     def __get_next_counter(self):
         with threading.Lock():
             self.counter += 1
-            return random.random.randint(1, 10000000)
+            return random.randint(1, 10000000)
 
     def get_image_for_location(self, lng, lat):
         for img_data in self.image_data['docs']:
