@@ -4,9 +4,10 @@
 # from imageio import imread
 # from matplotlib import pyplot as plt
 
+import random
 
 def compare_images(img1, img2):
-    return 17
+    return random.randint(10,21)
 
 # def compare_images_smart(img1_str, img2_str):
 #     pass
