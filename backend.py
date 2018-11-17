@@ -1,5 +1,6 @@
 import json
 import threading
+from random import random
 
 import geopy
 from geopy import distance
@@ -28,7 +29,7 @@ class ImageData(object):
     def __get_next_counter(self):
         with threading.Lock():
             self.counter += 1
-            return self.counter
+            return random.random.randint(1, 10000000)
 
     def get_image_for_location(self, lng, lat):
         for img_data in self.image_data['docs']:
@@ -38,7 +39,7 @@ class ImageData(object):
                 with open(f'{PATH_TO_IMAGES}/{img_data["B1p"][0]}', "rb") as image_file:
                     encoded_img = base64.b64encode(image_file.read()).decode()
                     challenge_id = self.__get_next_counter()
-                    self.challenges[challenge_id] = {encoded_img}
+                    self.challenges[challenge_id] = encoded_img
                     return challenge_id, encoded_img
         return None, None
 
