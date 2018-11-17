@@ -44,7 +44,7 @@ class ImageData(object):
 
     def __save_points(self):
         with open('points', 'w') as f:
-            f.write(self.points)
+            f.write(str(self.points))
 
     def compare_images(self, img1, img2):
         result = imageproc.compare_images(img1, img2)
