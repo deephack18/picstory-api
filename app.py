@@ -1,6 +1,7 @@
 #!venv/bin/python
 import importlib
 import os
+import time
 
 from flask import Flask, jsonify, request
 
@@ -33,6 +34,7 @@ def check_location(lng, lat):
 
 @app.route('/api/v1.0/submit-challenge-photo', methods=['POST'])
 def submit_challenge_photo():
+    time.sleep(7)
     encoded_image = request.json["img"]
     challenge_id = request.json["challengeId"]
     result = image_data.compare_images(image_data.challenges[challenge_id], encoded_image)
