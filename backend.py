@@ -50,3 +50,4 @@ class ImageData(object):
         result = imageproc.compare_images(img1, img2)
         self.points += result
         self.__save_points()
+        return result
