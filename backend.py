@@ -30,7 +30,7 @@ class ImageData(object):
     def __get_next_counter(self):
         with threading.Lock():
             self.counter += 1
-            return random.randint(1, 10000000)
+            return self.counter
 
     def get_image_for_location(self, lng, lat):
         for img_data in self.image_data['docs']:
