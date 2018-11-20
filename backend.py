@@ -6,8 +6,10 @@ import geopy
 from geopy import distance
 
 import imageproc
+from config import TEST_MODE
 
 PATH_TO_DATA = "data.json"
+PATH_TO_TEST_DATA = "data-test.json"
 PATH_TO_IMAGES = "images"
 
 DISTANCE_IN_KM_TO_CONSIDER_CLOSE = 1
@@ -19,13 +21,17 @@ class ImageData(object):
     def __init__(self):
         print('Initializing ImageData')
         self.counter = 0
-        with open(PATH_TO_DATA, 'r') as f:
-            self.image_data = json.load(f)
+        self.image_data = self.__get_image_data_list(PATH_TO_DATA)
+        if TEST_MODE:
+            self.image_data.extend(self.__get_image_data_list(PATH_TO_TEST_DATA))
         self.challenges = {}
-        print(self.image_data['docs'][0])
         with open('points', 'r') as f:
             self.points = int(f.readline())
 
+    def __get_image_data_list(self, file):
+        with open(file, 'r') as f:
+            self.image_data = json.load(f)
+            return self.image_data['docs']
 
     def __get_next_counter(self):
         with threading.Lock():
@@ -33,7 +39,7 @@ class ImageData(object):
             return self.counter
 
     def get_image_for_location(self, lng, lat):
-        for img_data in self.image_data['docs']:
+        for img_data in self.image_data:
             if 'CP_geo' not in img_data:
                 continue
             if distance.distance(*(img_data['CP_geo']), (lng, lat)).km < DISTANCE_IN_KM_TO_CONSIDER_CLOSE:
