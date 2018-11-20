@@ -20,7 +20,7 @@ def compare_images(img1, img2):
 #     return cv2.imread('grayscale_image.png', cv2.CV_LOAD_IMAGE_GRAYSCALE)
 #
 #
-# img1 = load_grey_scale('table.jpeg')
+# img1 = load_grey_scale('test-images/table.jpeg')
 # img2 = load_grey_scale('images/LAV039-00950.jpg')
 #
 #
