@@ -39,6 +39,7 @@ class ImageData(object):
             return self.counter
 
     def get_image_for_location(self, lng, lat):
+        print(f'Looking for photo for location: {lng}, {lat}')
         for img_data in self.image_data:
             if 'CP_geo' not in img_data:
                 continue
