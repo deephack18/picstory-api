@@ -43,6 +43,8 @@ class ImageData(object):
         for img_data in self.image_data:
             if 'CP_geo' not in img_data:
                 continue
+            if "dnipro-ukraine-coords-test.jpg" == self.image_data["B1p"]:
+                print(f"Test pic is present, distance to it: {distance.distance(*(img_data['CP_geo']), (lat, lng)).km}")
             if distance.distance(*(img_data['CP_geo']), (lat, lng)).km < DISTANCE_IN_KM_TO_CONSIDER_CLOSE:
                 with open(f'{PATH_TO_IMAGES}/{img_data["B1p"][0]}', "rb") as image_file:
                     encoded_img = base64.b64encode(image_file.read()).decode()
